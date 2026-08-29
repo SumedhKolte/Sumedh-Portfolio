@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="obsidian">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sumedh Kolte — Full Stack Developer (MERN) & AI Application Builder</title>
+<meta name="description" content="Portfolio of Sumedh Kolte — Full Stack Developer (MERN) and AI application builder. Founder & Team Lead at HarmoCare; builds microservices, real-time systems and guarded LLM pipelines. B.Tech IT, graduated June 2026 — available now.">
+<meta name="author" content="Sumedh Kolte">
+<meta name="theme-color" content="#1b1d24">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sumedh Kolte — Full Stack Developer (MERN) & AI Application Builder">
+<meta property="og:description" content="An IDE you can actually use: file tree, tabs, command palette, terminal and an in-page assistant, all built around a résumé.">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231b1d24'/><text x='50' y='68' font-family='monospace' font-size='54' font-weight='700' fill='%234ade9f' text-anchor='middle'>SK</text></svg>">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div class="shell" id="shell">
+
+  <!-- boot / compile sequence -->
+  <div class="boot" id="boot" role="status" aria-live="polite">
+    <div class="boot__inner">
+      <div class="boot__title">BUILDING PORTFOLIO</div>
+      <div id="boot-lines"></div>
+      <div class="boot__bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- title bar -->
+  <header class="titlebar">
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="titlebar__path" id="title-path">sumedh-kolte / portfolio — about.md</div>
+    <div class="spacer"></div>
+
+    <button class="searchbtn" type="button" data-act="palette">
+      <span>Search files, run commands</span><span class="kbd">⌘K</span>
+    </button>
+
+    <div class="themeswitch" id="theme-switch" role="group" aria-label="Theme">
+      <button type="button" data-theme="obsidian" title="Obsidian" aria-label="Obsidian theme" aria-pressed="true">◐</button>
+      <button type="button" data-theme="paper" title="Paper" aria-label="Paper theme" aria-pressed="false">◑</button>
+      <button type="button" data-theme="contrast" title="High contrast" aria-label="High contrast theme" aria-pressed="false">◉</button>
+    </div>
+
+    <a class="chip-link" href="mailto:sumedhkolte19@gmail.com">Email</a>
+    <a class="chip-link" href="https://linkedin.com/in/sumedh-kolte" target="_blank" rel="noreferrer">Book a call</a>
+    <a class="btn-primary" id="resume-link" href="Sumedh_Resume__2026.pdf" target="_blank" rel="noreferrer">Résumé ↓</a>
+  </header>
+
+  <div class="body">
+
+    <!-- activity rail -->
+    <nav class="rail" id="rail" aria-label="Panels">
+      <button type="button" data-act="explorer" title="Explorer" aria-label="Show explorer" aria-pressed="true">EX</button>
+      <button type="button" data-act="search" title="Search across all files (⇧⌘F)" aria-label="Search across all files" aria-pressed="false">⌕</button>
+      <button type="button" data-act="palette" title="Command palette (⌘K)" aria-label="Command palette">⌘K</button>
+      <button type="button" data-act="terminal" title="Terminal (⌃`)" aria-label="Toggle terminal" aria-pressed="true">&gt;_</button>
+      <button type="button" data-act="chat" title="Ask the portfolio" aria-label="Toggle assistant" aria-pressed="false">AI</button>
+      <button type="button" data-act="diff" title="Architecture diff" aria-label="Open architecture diff">±</button>
+      <button type="button" data-act="zen" title="Zen mode (⌥Z)" aria-label="Toggle zen mode" aria-pressed="false">⤢</button>
+    </nav>
+
+    <!-- explorer -->
+    <aside class="explorer" id="explorer" aria-label="Explorer">
+
+      <div class="side-view" id="side-files">
+        <div class="explorer__label">EXPLORER</div>
+        <div class="explorer__tree">
+          <div class="tree__folder">▾ sumedh-kolte</div>
+          <div id="tree-root"></div>
+          <div class="tree__folder tree__folder--nested">▾ projects</div>
+          <div id="tree-proj"></div>
+        </div>
+        <div class="heat">
+          <div class="heat__head">
+            <span>COMMIT ACTIVITY</span>
+            <a href="https://github.com/sumedhkolte" target="_blank" rel="noreferrer">@sumedhkolte</a>
+          </div>
+          <div class="heat__grid" id="heat-grid" aria-hidden="true"></div>
+          <div class="heat__note" id="heat-note">Illustrative pattern — connecting to GitHub…</div>
+        </div>
+      </div>
+
+      <div class="side-view" id="side-search" hidden>
+        <div class="explorer__label">SEARCH</div>
+        <div class="search__box">
+          <label class="sr-only" for="search-input">Search across all files</label>
+          <input id="search-input" type="search" placeholder="Search all files…" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="search__summary" id="search-summary" aria-live="polite">Search every file — try <code>postgres</code>, <code>latency</code> or <code>agile</code>.</div>
+        <div class="search__results" id="search-results"></div>
+      </div>
+
+    </aside>
+
+    <!-- editor -->
+    <main class="editor">
+      <div class="tabs" id="tabs" role="tablist" aria-label="Open files"></div>
+
+      <div class="breadcrumb">
+        <span>sumedh-kolte</span><span>›</span><span class="breadcrumb__file" id="crumb-file">about.md</span>
+        <div class="spacer"></div>
+        <span class="breadcrumb__meta" id="crumb-meta"></span>
+      </div>
+
+      <div class="pane-scroll" id="pane" role="tabpanel"></div>
+
+      <!-- terminal -->
+      <section class="terminal" id="terminal" aria-label="Terminal">
+        <div class="panel__bar">
+          <span class="panel__title">TERMINAL</span>
+          <span class="panel__hint">bash — try help, whoami, grep &lt;term&gt;, hire</span>
+          <div class="spacer"></div>
+          <button class="panel__x" type="button" data-act="close-terminal" aria-label="Close terminal">×</button>
+        </div>
+        <div class="term__log" id="term-log">
+          <div class="term__line" style="color:var(--fg2)">sumedh-portfolio v2026.1 — type `help` for commands</div>
+          <div class="term__line" style="color:var(--fg2)">tip: `grep postgres`, `open projects`, `whoami`, `hire`</div>
+          <div class="term__row" id="term-row">
+            <span class="term__ps1">sumedh@portfolio ~ $</span>
+            <label class="sr-only" for="term-input">Terminal input</label>
+            <input class="term__in" id="term-input" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off">
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- assistant -->
+    <aside class="chat" id="chat" aria-label="Ask the portfolio" hidden>
+      <div class="panel__bar">
+        <span class="panel__title">ASK THE PORTFOLIO</span>
+        <div class="spacer"></div>
+        <button class="panel__x" type="button" data-act="close-chat" aria-label="Close assistant">×</button>
+      </div>
+      <div class="chat__log" id="chat-log" aria-live="polite">
+        <div class="chat__msg">Ask anything about Sumedh’s work — projects, stack, availability. Answers come from his résumé.</div>
+      </div>
+      <div class="chat__chips">
+        <button type="button" data-act="chat-chip" data-q="What is the hardest thing he built?">Hardest thing he built?</button>
+        <button type="button" data-act="chat-chip" data-q="What AI experience does he have?">AI experience</button>
+        <button type="button" data-act="chat-chip" data-q="When is he available and what roles?">Availability</button>
+      </div>
+      <div class="chat__form">
+        <label class="sr-only" for="chat-input">Ask about his work</label>
+        <input id="chat-input" type="text" placeholder="Ask about his work…" autocomplete="off">
+        <button type="button" id="chat-send" aria-label="Send">↵</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- status bar -->
+  <footer class="statusbar">
+    <span class="statusbar__live">● available now</span>
+    <span class="wide-only">Mumbai, India</span>
+    <span id="status-file">about.md</span>
+    <div class="spacer"></div>
+    <button type="button" id="btn-copy" data-act="copy-email">copy email</button>
+    <span class="wide-only">⌘K palette</span>
+    <span class="wide-only">⌃` terminal</span>
+    <span class="wide-only">⇧⌘F search</span>
+    <span class="wide-only">⌥Z zen</span>
+  </footer>
+
+  <!-- command palette -->
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
+    <div class="palette__box">
+      <label class="sr-only" for="palette-input">Search files and commands</label>
+      <input class="palette__input" id="palette-input" type="text" placeholder="Type a file name or command…" autocomplete="off" spellcheck="false">
+      <div class="palette__list" id="palette-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<noscript>
+  <div style="position:fixed;inset:0;z-index:200;background:#14161d;color:#e7e8ec;padding:48px 24px;font-family:ui-monospace,monospace;overflow:auto;">
+    <h1 style="font-size:32px;margin:0 0 16px;">Sumedh Kolte</h1>
+    <p style="max-width:70ch;line-height:1.7;">Full Stack Developer (MERN) and AI application builder, graduated June 2026. Founded and led an 8-member Agile team shipping an incubated healthcare MVP; builds microservices, real-time systems and guarded LLM pipelines. 135+ DSA problems solved.</p>
+    <p style="margin-top:20px;">This portfolio is an interactive editor and needs JavaScript. Reach him at
+      <a style="color:#4ade9f" href="mailto:sumedhkolte19@gmail.com">sumedhkolte19@gmail.com</a> ·
+      <a style="color:#4ade9f" href="https://github.com/sumedhkolte">GitHub</a> ·
+      <a style="color:#4ade9f" href="https://linkedin.com/in/sumedh-kolte">LinkedIn</a> ·
+      <a style="color:#4ade9f" href="Sumedh_Resume__2026.pdf">Résumé (PDF)</a>
+    </p>
+  </div>
+</noscript>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
