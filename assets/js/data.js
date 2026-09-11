@@ -21,7 +21,13 @@ const REPOS = {
   truecandidate: 'https://github.com/SumedhKolte/TrueCandidate',
   zapfix: 'https://github.com/SumedhKolte/zapfix',
   daysly: null,
-  harmocare: null
+  harmocare: null,
+  aegis: 'https://github.com/SumedhKolte/aegis',
+  flowforge: 'https://github.com/SumedhKolte/FlowFordge',
+  synapse: 'https://github.com/SumedhKolte/synapse-CRM',
+  catalog: 'https://github.com/SumedhKolte/codevector-catalog-engine',
+  emi: 'https://github.com/SumedhKolte/1Fi-EMI-plans',
+  onyx: 'https://github.com/SumedhKolte/Oynx'
 };
 
 /* Commit graph. `live: false` falls back to the illustrative pattern.
@@ -43,7 +49,7 @@ const ROLES = [
 
 const BOOT = [
   { tag: '[1/5]', text: 'resolving sumedh-kolte@2026', tone: 'fg2' },
-  { tag: '[2/5]', text: 'linking 3 shipped projects', tone: 'fg2' },
+  { tag: '[2/5]', text: 'linking 9 shipped projects', tone: 'fg2' },
   { tag: '[3/5]', text: 'mounting 5 domain services', tone: 'a3' },
   { tag: '[4/5]', text: 'warming LLM pipeline — 450ms budget', tone: 'a2' },
   { tag: '[5/5]', text: 'build succeeded · available now', tone: 'a1' }
@@ -94,6 +100,30 @@ const KB = [
   {
     k: ['daysly', 'travel', 'compliance', 'tests', 'testing', 'schengen', 'offline'],
     a: 'Daysly is an offline-first travel compliance engine — a dependency-free TypeScript rules engine for Schengen 90/180, UK SRT and US SPT using integer civil-date arithmetic, an AI safety invariant where the engine decides and the LLM only narrates, and 192 unit and property-based tests with Vitest and fast-check.'
+  },
+  {
+    k: ['aegis', 'escrow', 'arbitrator', 'trust engine', 'voice', 'negotiation'],
+    a: 'Aegis is a P2P trust engine — two people negotiate a gig out loud and an AI arbitrator drafts the escrow contract from what was actually said. Every tool call the model makes is re-validated in Python before it touches money, funds lock only after three gates (deception risk, live-speaker challenge, solvency), and the money layer uses integer cents through SECURITY DEFINER Postgres functions with an append-only ledger. On a realistic scam thread it scores 95/DO_NOT_PROCEED versus 5/SAFE on a clean one, with zero false findings.'
+  },
+  {
+    k: ['flowforge', 'flowfordge', 'workflow', 'agent builder', 'n8n', 'approval'],
+    a: 'FlowForge is an AI agent workflow builder — six step types, four trigger types, and a run that pauses mid-flight at an approval gate and resumes in a different process. It has two independent permission layers (Postgres RLS plus engine role checks) with an executable isolation proof that must return PASS on every row, 32 engine unit tests, and a stub LLM mode that tags every fake completion so it cannot be mistaken for a real one.'
+  },
+  {
+    k: ['synapse', 'crm', 'langgraph', 'hcp', 'pharma'],
+    a: 'Synapse CRM inverts data entry: the form is read-only and reps never type into it. A LangGraph agent parses natural language, routes to one of five tools, and streams state back into the form field by field. Llama 3.3 70B does the routing, Llama 3.1 8B does extraction, and history search runs on local 768-dimension pgvector embeddings with no embedding API call. Corrections apply as diffs, so fixing a name leaves every other field intact.'
+  },
+  {
+    k: ['catalog', 'pagination', 'keyset', 'cursor', 'offset', 'fastify', 'scale'],
+    a: 'The Catalog Engine is a Fastify + PostgreSQL backend doing keyset (cursor) pagination over 200,000+ products, so paging stays correct while rows are being inserted — no duplicates and no skips, which an OFFSET feed cannot promise. It ships its own proof: an endpoint that inserts rows mid-session and a benchmark endpoint timing OFFSET against keyset at a chosen depth.'
+  },
+  {
+    k: ['1fi', 'emi', 'instalment', 'installment', 'storefront', 'fintech', 'paise'],
+    a: 'The 1Fi EMI Store is an instalment storefront backed by mutual-fund holdings, built for the 1Fi SDE1 assignment. Money is integer paise and rates are integer basis points, the EMI engine is a pure I/O-free routine exposed as POST /api/emi/quote, and the tests post the inputs behind every seeded plan to that endpoint and assert it agrees with the stored figures.'
+  },
+  {
+    k: ['onyx', 'oynx', 'chat', 'socket', 'messaging', 'realtime chat'],
+    a: 'Onyx is a real-time chat app — React Native and Expo on the front, Express and Socket.io with MongoDB Atlas behind, Supabase issuing the JWTs and Groq powering smart replies. Friends handshake, read receipts, vanishing messages, live polls and tic-tac-toe, verified by an end-to-end smoke script that runs the whole flow as 27 assertions.'
   },
   {
     k: ['skill', 'stack', 'tech', 'language', 'framework', 'tools'],
@@ -243,6 +273,135 @@ const PANES = {
           <div class="metric"><div class="metric__n" style="color:var(--a2)">3</div><div class="metric__l">jurisdictional rulesets</div></div>
           <div class="metric"><div class="metric__n" style="color:var(--a3)">0</div><div class="metric__l">runtime dependencies</div></div>
           <div class="metric-link metric-link--muted">Private repo — walkthrough on request</div>
+        </div>
+      </div>
+    </div>`,
+
+  'aegis.ts': `
+    <div class="pane">
+      <div class="pane__kicker">// projects/aegis.ts</div>
+      <h2 class="proj-title">Aegis</h2>
+      <div class="proj-sub">P2P Trust Engine &amp; AI Arbitrator</div>
+      <div class="proj-stack">Next.js 15 · FastAPI · OpenAI Realtime (speech-to-speech) · WebRTC · Supabase Postgres · gpt-4o vision</div>
+      <div class="split">
+        <div class="notes">
+          <div class="note">Two people negotiate a gig out loud; an AI arbitrator sits in the call, drafts the escrow contract from what was actually said, and holds the money. The browser owns the WebRTC session, but <strong>every tool call the model makes is re-validated in Python before it can touch funds</strong> — nothing the model says is trusted on its own.</div>
+          <div class="note note--a2">Escrow locks only when three independent gates pass: cumulative deception risk below the halt threshold, a live-speaker challenge passed within 10 minutes, and verified buyer solvency. A refusal returns 200 with a spoken summary so the arbitrator reads the reason aloud instead of failing silently.</div>
+          <div class="note note--a3">Money never touches a float. <code>price_cents</code> is the only authoritative amount and <code>price_usd</code> is a generated column, so displayed and settled values cannot drift. Every movement runs through a <code>SECURITY DEFINER</code> Postgres function that row-locks, mutates the wallet and appends to an append-only ledger in one transaction — triggers reject any UPDATE or DELETE on ledger rows. Dispute splits are integer basis points with the buyer absorbing the remainder, so the ledger always nets to zero.</div>
+          <div class="note">Guardian ingests deals struck elsewhere (Fiverr, Discord, WhatsApp) and runs the same six-pattern forensics. The model must quote verbatim to raise a finding and the backend drops any quote it cannot locate in the source text; terms that were never stated stay null rather than being guessed — an invented number would be locked into a real contract.</div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric__n" style="color:var(--a1)">95 / 5</div><div class="metric__l">risk score — scam thread vs clean thread, zero findings on the clean one</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a2)">3</div><div class="metric__l">gates before funds lock</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a3)">0</div><div class="metric__l">floating-point values in the money layer</div></div>
+          <a class="metric-link" href="${REPOS.aegis}" target="_blank" rel="noreferrer">View source on GitHub →</a>
+        </div>
+      </div>
+    </div>`,
+
+  'flowforge.ts': `
+    <div class="pane">
+      <div class="pane__kicker">// projects/flowforge.ts</div>
+      <h2 class="proj-title">FlowForge</h2>
+      <div class="proj-sub">AI agent workflow builder — a small, opinionated n8n</div>
+      <div class="proj-stack">Next.js 15 · Express execution engine · Supabase (Postgres · RLS · Realtime) · React Flow · Groq · pg_net</div>
+      <div class="split">
+        <div class="notes">
+          <div class="note">Six step types and four trigger types over one state machine. An <code>approval_gate</code> pauses a run mid-flight for a human and the run <strong>resumes in a different process</strong> — the engine is stateless between steps, so execution survives a restart or a second instance picking it up.</div>
+          <div class="note note--a2">Two independent permission layers: Postgres row-level security underneath, role checks in the engine above it. The schema ships an executable isolation proof — <code>rls_isolation.sql</code> must return PASS on every row before the security model is considered correct, so tenancy is verified rather than assumed.</div>
+          <div class="note note--a3">With no LLM key configured, <code>llm_call</code> falls back to a deterministic local classifier — and every such result is tagged <code>provider: "stub"</code> with a disclosure string the UI renders as a warning. A stubbed completion can never be mistaken for a real one, which is the difference between a demo and a lie.</div>
+          <div class="note">Database-event triggers reach the engine over <code>pg_net</code> and <strong>fail closed</strong>: until the engine URL is explicitly configured, events are still recorded but nothing is posted outward, so a fresh clone never calls a stranger's server.</div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric__n" style="color:var(--a1)">6 · 4</div><div class="metric__l">step types · trigger types</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a2)">32</div><div class="metric__l">engine unit tests, no network or DB needed</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a3)">2</div><div class="metric__l">independent permission layers</div></div>
+          <a class="metric-link" href="${REPOS.flowforge}" target="_blank" rel="noreferrer">View source on GitHub →</a>
+        </div>
+      </div>
+    </div>`,
+
+  'synapse-crm.py': `
+    <div class="pane">
+      <div class="pane__kicker">// projects/synapse-crm.py</div>
+      <h2 class="proj-title">Synapse CRM</h2>
+      <div class="proj-sub">AI-first HCP interaction module</div>
+      <div class="proj-stack">FastAPI · LangGraph · Groq (Llama 3.3 70B + 3.1 8B) · pgvector · React + Redux · Supabase Realtime · whisper-large-v3</div>
+      <div class="split">
+        <div class="notes">
+          <div class="note">Inverts the usual CRM: the form on the left is <strong>read-only</strong> and reps never type into it. Every write, edit, history lookup and compliance check happens in natural language on the right; a LangGraph agent routes the message to one of five tools and streams the resulting state back into the form field by field.</div>
+          <div class="note note--a2">Two models chosen by role — Llama 3.3 70B is the routing brain deciding which tool to call, Llama 3.1 8B does extraction and generation. The large model is only asked the question that actually needs it, which keeps per-message cost and latency down.</div>
+          <div class="note note--a3">Corrections apply as diffs, not rewrites. “Actually the name was Dr. John and the sentiment was negative” changes exactly two fields and preserves everything else — the hard part of a conversational form, and the reason freshly-updated fields flash so the rep can see what moved.</div>
+          <div class="note">History search runs on local 768-dimension BAAI/bge-base-en-v1.5 embeddings matched to a <code>vector(768)</code> pgvector column, so semantic lookup needs no embedding API call.</div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric__n" style="color:var(--a1)">5</div><div class="metric__l">agent tools behind one chat box</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a2)">2</div><div class="metric__l">models split by role — routing vs extraction</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a3)">768-dim</div><div class="metric__l">local embeddings, no embedding API</div></div>
+          <a class="metric-link" href="${REPOS.synapse}" target="_blank" rel="noreferrer">View source on GitHub →</a>
+        </div>
+      </div>
+    </div>`,
+
+  'catalog-engine.js': `
+    <div class="pane">
+      <div class="pane__kicker">// projects/catalog-engine.js</div>
+      <h2 class="proj-title">Catalog Engine</h2>
+      <div class="proj-sub">Stable pagination over 200k+ products</div>
+      <div class="proj-stack">Node.js · Fastify · PostgreSQL · Pino · Vitest + Supertest · React + Vite</div>
+      <div class="split">
+        <div class="notes">
+          <div class="note">Keyset (cursor) pagination instead of <code>OFFSET</code>, so paging stays <strong>correct while rows are being written</strong> — no duplicates, no skipped records. The usual <code>OFFSET</code> feed silently shifts under you the moment someone inserts a row above your page.</div>
+          <div class="note note--a2">The claim is demonstrable rather than asserted: <code>POST /api/simulate-inserts</code> writes new rows mid-session so you can watch a feed stay stable, and <code>GET /api/benchmark</code> times <code>OFFSET</code> against keyset at a chosen depth. Building the proof into the API is the part most implementations skip.</div>
+          <div class="note note--a3">Opaque bidirectional cursors, with a timestamptz precision fix so a cursor round-trips exactly. The honest tradeoff is prev/next rather than jump-to-page — inherent to cursor pagination, and precisely what buys the stability.</div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric__n" style="color:var(--a1)">200k+</div><div class="metric__l">rows seeded via batched UNNEST inserts</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a2)">0.84ms</div><div class="metric__l">DB time on the documented sample page query</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a3)">0</div><div class="metric__l">duplicates or skips under concurrent writes</div></div>
+          <a class="metric-link" href="${REPOS.catalog}" target="_blank" rel="noreferrer">View source on GitHub →</a>
+        </div>
+      </div>
+    </div>`,
+
+  'emi-store.ts': `
+    <div class="pane">
+      <div class="pane__kicker">// projects/emi-store.ts</div>
+      <h2 class="proj-title">1Fi EMI Store</h2>
+      <div class="proj-sub">Instalment storefront backed by mutual-fund holdings</div>
+      <div class="proj-stack">Next.js · TypeScript · PostgreSQL · Vitest · typed REST API</div>
+      <div class="split">
+        <div class="notes">
+          <div class="note">Money is <code>INTEGER</code> paise and rates are <code>INTEGER</code> basis points — no floating point anywhere in the financial path, so a displayed figure and a charged figure cannot diverge by a rounding cent.</div>
+          <div class="note note--a2">The EMI engine is a pure, I/O-free routine exposed as <code>POST /api/emi/quote</code>. The test suite posts the inputs behind <strong>every seeded plan</strong> to that endpoint and asserts it agrees with the stored figures — the API and the database can never quietly disagree.</div>
+          <div class="note note--a3"><code>tests/data-layer.test.ts</code> re-derives every stored figure from the formula and fails if it drifts, and invariants like <code>downPayment + principal === price</code> are asserted on both routes. The amortisation table renders from the same routine that produced the stored totals, so the schedule cannot contradict the summary.</div>
+          <div class="note">Nothing on the page is hardcoded in a component — products, variants, pricing and every EMI offer are served from Postgres through the typed API, with deep-linkable variant URLs.</div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric__n" style="color:var(--a1)">paise</div><div class="metric__l">integer money, zero floats</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a2)">100%</div><div class="metric__l">of seeded plans re-derived from the formula in tests</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a3)">5</div><div class="metric__l">tables, constraint- and index-backed</div></div>
+          <a class="metric-link" href="${REPOS.emi}" target="_blank" rel="noreferrer">View source on GitHub →</a>
+        </div>
+      </div>
+    </div>`,
+
+  'onyx.tsx': `
+    <div class="pane">
+      <div class="pane__kicker">// projects/onyx.tsx</div>
+      <h2 class="proj-title">Onyx</h2>
+      <div class="proj-sub">Real-time chat</div>
+      <div class="proj-stack">Node · Express · Socket.io · MongoDB Atlas · Supabase JWT · React Native (Expo SDK 51) · Groq</div>
+      <div class="split">
+        <div class="notes">
+          <div class="note">Realtime DMs behind a friends handshake — request, accept over a realtime notification, then a private room appears. Read receipts, vanishing messages, live polls, tic-tac-toe and Groq-powered smart replies on top of one Socket.io connection.</div>
+          <div class="note note--a2">Auth and message storage are deliberately separate concerns: Supabase issues and signs the JWT, the Express server verifies it, and Mongo holds the messages. Swapping either side does not disturb the other.</div>
+          <div class="note note--a3">Ships an end-to-end smoke script rather than a claim — <code>backend/scripts/smoke.js</code> drives auth → friends → chat → read receipts → polls → game rules → vanish → sync as 27 assertions against a running server.</div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="metric__n" style="color:var(--a1)">27</div><div class="metric__l">end-to-end smoke checks</div></div>
+          <div class="metric"><div class="metric__n" style="color:var(--a2)">iOS · Android</div><div class="metric__l">one Expo codebase, native build prebuilt</div></div>
+          <a class="metric-link" href="${REPOS.onyx}" target="_blank" rel="noreferrer">View source on GitHub →</a>
         </div>
       </div>
     </div>`,
@@ -407,7 +566,13 @@ const FILES = [
   { id: 'education.md', icon: 'M', color: 'a3', meta: 'B.Tech IT · certifications', group: 'root' },
   { id: 'now.md', icon: 'M', color: 'a3', meta: 'currently building', group: 'root' },
   { id: 'contact.tsx', icon: 'TS', color: 'a2', meta: 'reach out', group: 'root' },
+  { id: 'aegis.ts', icon: 'TS', color: 'a2', meta: 'AI escrow arbitrator · voice', group: 'proj' },
+  { id: 'flowforge.ts', icon: 'TS', color: 'a2', meta: 'AI agent workflow engine', group: 'proj' },
   { id: 'truecandidate.ts', icon: 'TS', color: 'a2', meta: 'real-time fraud detection', group: 'proj' },
+  { id: 'synapse-crm.py', icon: 'PY', color: 'a1', meta: 'AI-first CRM · LangGraph', group: 'proj' },
+  { id: 'catalog-engine.js', icon: 'JS', color: 'a1', meta: 'keyset pagination · 200k rows', group: 'proj' },
   { id: 'zapfix.tsx', icon: 'TS', color: 'a2', meta: 'AI home repair marketplace', group: 'proj' },
-  { id: 'daysly.ts', icon: 'TS', color: 'a2', meta: 'offline-first compliance engine', group: 'proj' }
+  { id: 'daysly.ts', icon: 'TS', color: 'a2', meta: 'offline-first compliance engine', group: 'proj' },
+  { id: 'emi-store.ts', icon: 'TS', color: 'a2', meta: 'integer-money EMI storefront', group: 'proj' },
+  { id: 'onyx.tsx', icon: 'TS', color: 'a2', meta: 'real-time chat · React Native', group: 'proj' }
 ];

@@ -581,10 +581,16 @@
       }
     } else if (c === 'projects') {
       out.push(
+        { text: 'Aegis           AI escrow arbitrator · live voice · integer-cents ledger', tone: 'a1' },
+        { text: 'FlowForge       AI agent workflow engine · resumable approval gates', tone: 'a1' },
         { text: 'TrueCandidate   real-time fraud detection · Groq verdicts < 450ms', tone: 'a1' },
+        { text: 'Synapse CRM     AI-first CRM · LangGraph · read-only form', tone: 'a1' },
+        { text: 'Catalog Engine  keyset pagination · stable over 200k+ rows', tone: 'a1' },
         { text: 'Zapfix          AI home repair marketplace · shipped iOS + Android', tone: 'a1' },
         { text: 'Daysly          offline-first compliance engine · 192 tests', tone: 'a1' },
-        { text: 'run `open truecandidate.ts` to read one' }
+        { text: '1Fi EMI Store   integer-paise fintech storefront', tone: 'a1' },
+        { text: 'Onyx            real-time chat · 27-check smoke suite', tone: 'a1' },
+        { text: 'run `open aegis` to read one, or `skyline` to see them all in 3D' }
       );
     } else if (c === 'skills') {
       out.push(
@@ -669,7 +675,7 @@
     });
     return best
       ? best.a
-      : 'That is not in his résumé. Ask about HarmoCare, TrueCandidate, Zapfix, Daysly, his stack, or availability — or email ' + CONTACT.email + '.';
+      : 'That is not in his résumé. Ask about Aegis, FlowForge, TrueCandidate, Synapse CRM, the Catalog Engine, Zapfix, Daysly, HarmoCare, his stack, or availability — or email ' + CONTACT.email + '.';
   }
 
   function ask(q) {

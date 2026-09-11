@@ -15,6 +15,7 @@ Personal portfolio for **Sumedh Kolte** — Full Stack Developer (MERN) & AI app
 - **Command palette** — `⌘K` / `Ctrl+K`, with `↑` `↓` `↵` navigation over files, themes, links and actions
 - **Three themes** — obsidian, paper, high contrast. The choice persists in `localStorage`.
 - **Zen mode** (`⌥Z`), tab cycling (`⌥←` / `⌥→`), terminal toggle (`⌃\``), search (`⇧⌘F`), copy-email from the status bar
+- **Nine project pages** — Aegis, FlowForge, TrueCandidate, Synapse CRM, Catalog Engine, Zapfix, Daysly, 1Fi EMI Store, Onyx — each linked to its real repository
 - **Architecture diff view** — HarmoCare monolith → 5 domain services
 - **Assistant panel** answering from a local fact base built out of the résumé — no API key, works offline
 - **Deep links** — `#contact.tsx`, `#daysly.ts` etc. open that file directly
