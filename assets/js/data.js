@@ -15,6 +15,15 @@ const CONTACT = {
   resume: 'Sumedh_Resume__2026.pdf'
 };
 
+/* Repo per project. `null` means there is no public repository — the pane
+   says so plainly instead of linking to a profile that does not contain it. */
+const REPOS = {
+  truecandidate: 'https://github.com/SumedhKolte/TrueCandidate',
+  zapfix: 'https://github.com/SumedhKolte/zapfix',
+  daysly: null,
+  harmocare: null
+};
+
 /* Commit graph. `live: false` falls back to the illustrative pattern.
    The endpoint is a keyless public mirror of GitHub's contributions
    calendar — GitHub's own API needs a token, which a static site cannot
@@ -192,7 +201,7 @@ const PANES = {
           <div class="metric"><div class="metric__n" style="color:var(--a1)">&lt;450ms</div><div class="metric__l">LLM consistency verdict</div></div>
           <div class="metric"><div class="metric__n" style="color:var(--a2)">12+</div><div class="metric__l">weak-signal pipelines fused</div></div>
           <div class="metric"><div class="metric__n" style="color:var(--a3)">0</div><div class="metric__l">cross-instance coordination</div></div>
-          <a class="metric-link" href="${CONTACT.github}" target="_blank" rel="noreferrer">View on GitHub →</a>
+          <a class="metric-link" href="${REPOS.truecandidate}" target="_blank" rel="noreferrer">View source on GitHub →</a>
         </div>
       </div>
     </div>`,
@@ -212,7 +221,7 @@ const PANES = {
           <div class="metric"><div class="metric__n" style="color:var(--a1)">9</div><div class="metric__l">state job lifecycle</div></div>
           <div class="metric"><div class="metric__n" style="color:var(--a2)">18+</div><div class="metric__l">tables under RLS</div></div>
           <div class="metric"><div class="metric__n" style="color:var(--a3)">iOS · Android</div><div class="metric__l">shipped via EAS Build</div></div>
-          <a class="metric-link" href="${CONTACT.github}" target="_blank" rel="noreferrer">View on GitHub →</a>
+          <a class="metric-link" href="${REPOS.zapfix}" target="_blank" rel="noreferrer">View source on GitHub →</a>
         </div>
       </div>
     </div>`,
@@ -233,9 +242,33 @@ const PANES = {
           <div class="metric"><div class="metric__n" style="color:var(--a1)">192</div><div class="metric__l">unit + property tests</div></div>
           <div class="metric"><div class="metric__n" style="color:var(--a2)">3</div><div class="metric__l">jurisdictional rulesets</div></div>
           <div class="metric"><div class="metric__n" style="color:var(--a3)">0</div><div class="metric__l">runtime dependencies</div></div>
-          <a class="metric-link" href="${CONTACT.github}" target="_blank" rel="noreferrer">View on GitHub →</a>
+          <div class="metric-link metric-link--muted">Private repo — walkthrough on request</div>
         </div>
       </div>
+    </div>`,
+
+  'skyline.3d': `
+    <div class="pane pane--skyline">
+      <div class="pane__kicker">// skyline.3d — live from github.com/${GITHUB.user}</div>
+      <h2 class="proj-title">Repository skyline</h2>
+      <div class="proj-sub">Every public repo, rendered as a city</div>
+      <div class="proj-stack">Hand-written perspective projection on a 2D canvas · no three.js, no WebGL, no dependencies · one GitHub API call</div>
+
+      <div class="skyline">
+        <canvas data-skyline-canvas aria-label="3D city of GitHub repositories"></canvas>
+        <div class="skyline__tip" data-skyline-tip hidden></div>
+        <div class="skyline__status" data-skyline-status>Loading…</div>
+      </div>
+
+      <div class="skyline__bar">
+        <button type="button" data-skyline-spin aria-pressed="true">Pause rotation</button>
+        <button type="button" data-skyline-all aria-pressed="false">Showing 2026 only</button>
+        <span class="skyline__count" data-skyline-count></span>
+      </div>
+
+      <div class="skyline__legend" data-skyline-legend></div>
+
+      <p class="skyline__hint">Drag to orbit · scroll to zoom · click a building to open that repository on GitHub. Building height is the log of repo size, so a 28&nbsp;MB project does not flatten a 200&nbsp;KB one.</p>
     </div>`,
 
   'skills.package.json': `
@@ -368,6 +401,7 @@ const FILES = [
   { id: 'about.md', icon: 'M', color: 'a3', meta: 'markdown · profile', group: 'root' },
   { id: 'experience.ts', icon: 'TS', color: 'a2', meta: 'HarmoCare · Jan 2025 – Jan 2026', group: 'root' },
   { id: 'skills.package.json', icon: '{}', color: 'a1', meta: 'dependency view', group: 'root' },
+  { id: 'skyline.3d', icon: '◱', color: 'a3', meta: '3D repo city · live from GitHub', group: 'root' },
   { id: 'impact.diff', icon: '±', color: 'a2', meta: 'monolith → 5 services', group: 'root' },
   { id: 'dsa.json', icon: '{}', color: 'a1', meta: '135+ problems solved', group: 'root' },
   { id: 'education.md', icon: 'M', color: 'a3', meta: 'B.Tech IT · certifications', group: 'root' },

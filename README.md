@@ -9,6 +9,7 @@ Personal portfolio for **Sumedh Kolte** — Full Stack Developer (MERN) & AI app
 - **IDE shell** — activity rail, explorer, tab strip, breadcrumb, status bar
 - **Boot / compile sequence** on load
 - **Project-wide search** (`⇧⌘F`, the `⌕` rail button, or `grep <term>` in the terminal) — searches the text of every file, groups hits by file with match counts and highlighted snippets, click to jump
+- **3D repository skyline** (`skyline.3d`, or `skyline` in the terminal) — every public repo rendered as a city, live from the GitHub API. Hand-written perspective projection on a 2D canvas: no three.js, no WebGL, no dependencies. Drag to orbit, scroll to zoom, click a building to open the repo.
 - **Live GitHub commit graph** in the sidebar — real contributions, with an offline fallback (see below)
 - **Working terminal** — `help`, `whoami`, `ls`, `open <file>`, `grep <term>`, `projects`, `skills`, `stats`, `gh`, `resume`, `theme <name>`, `ask <question>`, `hire`, `clear`. Arrow keys walk command history.
 - **Command palette** — `⌘K` / `Ctrl+K`, with `↑` `↓` `↵` navigation over files, themes, links and actions
@@ -35,6 +36,7 @@ index.html                  markup + shell
 assets/css/styles.css       theme tokens, layout, responsive rules
 assets/js/data.js           content: files, pane markup, assistant fact base
 assets/js/app.js            behaviour: tabs, terminal, palette, assistant
+assets/js/skyline.js        the 3D repo city (hand-rolled renderer)
 assets/fonts/               IBM Plex Mono + Space Grotesk (woff2, self-hosted)
 Sumedh_Resume__2026.pdf     linked from the title bar and `resume`
 ```
@@ -46,6 +48,7 @@ Everything visible lives in `assets/js/data.js`:
 - **Add a file to the editor** — add an entry to `FILES` (id, icon, colour, meta, group) and a matching key in `PANES`. Nothing in `app.js` needs to change.
 - **Teach the assistant a new answer** — add `{ k: [...tokens], a: 'answer' }` to `KB`. The longest matching token wins, so use distinctive words; if nothing matches, the assistant says so and points at the email address rather than guessing.
 - **Change the terminal output** — the commands are in `runCommand()` in `app.js`.
+- **Project → repo links** live in `REPOS` in `data.js`. A `null` entry renders "Private repo — walkthrough on request" instead of linking somewhere the project isn't.
 
 ## Connecting GitHub
 

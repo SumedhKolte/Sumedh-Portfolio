@@ -88,6 +88,7 @@
     document.documentElement.setAttribute('data-theme', name);
     try { window.localStorage.setItem(STORE_KEY, name); } catch (e) { /* ignore */ }
     renderThemeSwitch();
+    if (typeof Skyline !== 'undefined') Skyline.retheme();
   }
 
   function renderThemeSwitch() {
@@ -230,8 +231,11 @@
   function renderPane() {
     if (lastPane === state.active) return;
     lastPane = state.active;
+    if (typeof Skyline !== 'undefined') Skyline.unmount();   // stop the old rAF loop
     el.pane.innerHTML = PANES[state.active] || '<div class="pane">File not found.</div>';
     el.pane.scrollTop = 0;
+
+    if (state.active === 'skyline.3d' && typeof Skyline !== 'undefined') Skyline.mount(el.pane);
 
     if (state.active === 'about.md') {
       clearInterval(typeState.timer);
@@ -530,6 +534,7 @@
         { text: 'ls            list files' },
         { text: 'open <file>   open a file in the editor' },
         { text: 'grep <term>   search across every file' },
+        { text: 'skyline       3D city of every GitHub repo' },
         { text: 'projects      the three shipped builds' },
         { text: 'skills        stack summary' },
         { text: 'stats         numbers worth knowing' },
@@ -556,6 +561,9 @@
       }
       if (hit) { openFile(hit.id); out.push({ text: 'opened ' + hit.id, tone: 'a1' }); }
       else out.push({ text: 'no such file: ' + (arg || '(none)') + ' — try `ls`', tone: 'a2' });
+    } else if (c === 'skyline' || c === '3d') {
+      openFile('skyline.3d');
+      out.push({ text: 'rendering repository skyline — drag to orbit', tone: 'a1' });
     } else if (c === 'grep' || c === 'search' || c === 'find') {
       if (!arg) out.push({ text: 'usage: grep <term>   — searches every file', tone: 'a2' });
       else {
